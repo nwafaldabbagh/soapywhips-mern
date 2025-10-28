@@ -12,119 +12,92 @@ administrators to manage services, vehicles, customers, and bookings.
 Standard users can register, log in, view available services, add 
 their vehicles, and schedule detailing bookings.
 
-==================================================
-A. How to Start the Web Server (Backend)
-==================================================
+This project is a full-stack web app built with the MERN stack:
+MongoDB, Express.js, React, and Node.js.
 
-1. Make sure you have Node.js and MongoDB installed and running locally.
-   - Node.js version 18+ recommended
-   - MongoDB running on default port (27017)
+It includes two user roles:
+1. Standard User – can register, log in, create a profile, add vehicles, and view services.
+2. Administrator – can log in to the admin panel to manage customers, vehicles, and services.
 
-2. Open a terminal and navigate to the `server` folder:
-   cd server
+----------------------------------------------------------
+a. How can the grader start your web server?
+----------------------------------------------------------
 
-3. Create a `.env` file in the server folder (if not already there).
-   Example contents:
-   MONGO_URI=mongodb://127.0.0.1:27017/soapywhips
-   JWT_SECRET=replace_this_with_a_long_random_string
-   PORT=5050
+1. Open a terminal and go to the backend (server) folder:
+   cd ~/Downloads/soapywhips-mern/server
 
-4. Install dependencies:
+2. Make sure dependencies are installed:
    npm install
 
-5. Start the backend web server:
+3. Make sure you have MongoDB running on your computer.
+   (You can start it by typing “mongosh” in another terminal if it’s installed.)
+
+4. Start the backend server:
    npm run dev
 
-6. You should see:
-   MongoDB connected
-   Server running on 5000
+If everything is correct, you should see:
+   “MongoDB connected” and “Server running on 5050”.
 
-   ➜ The backend API will now be available at:
-   http://localhost:5050/api
+This means your Node.js web server (Express API) is running.
 
-==================================================
-B. How to Start the React Application (Frontend)
-==================================================
+----------------------------------------------------------
+b. Is there a second server needed for your React app?
+----------------------------------------------------------
 
-1. Open a second terminal window.
+Yes. The React app (frontend) runs separately using Vite.
 
-2. Navigate to the `client` folder:
-   cd client
-
-3. Install dependencies:
+1. Open another terminal window or tab.
+2. Go to the frontend (client) folder:
+   cd ~/Downloads/soapywhips-mern/client
+3. Install its dependencies:
    npm install
-
 4. Start the React development server:
    npm run dev
 
-5. You should see a message like:
-   Local: http://localhost:5173/
+When you see “Local: http://localhost:5173/”, 
+open that link in your web browser.
 
-   ➜ This is the React front-end server.
-   It automatically communicates with the backend on port 5000 via Axios.
+----------------------------------------------------------
+c. How can the grader navigate to the application?
+----------------------------------------------------------
 
-==================================================
-C. How to Navigate to the Application
-==================================================
+• The backend API runs on:  http://localhost:5050
+• The frontend web app runs on:  http://localhost:5173
 
-Once both servers are running:
+To use the site:
+1. Go to http://localhost:5173
+2. Click “Create Account” to register as a normal user.
+3. Log in and explore as a regular client.
+4. To become an admin, open MongoDB and run:
+   use soapywhips
+   db.users.updateOne({ username: "yourusername" }, { $set: { role: "admin" } })
 
-1. Open a web browser and visit:
-   http://localhost:5173
+Then log in again — you’ll see the Admin Panel at /admin
+(where you can manage services, customers, and vehicles).
 
-2. You will first see the Login Page.
-   - You can register a new user.
-   - To create an admin, you may update the user's role manually in MongoDB
-     (set role field to "admin" in the users collection).
+----------------------------------------------------------
+d. What Collections are needed in MongoDB?
+----------------------------------------------------------
 
-3. The application uses two ports:
-   - 5173 → React frontend (main application)
-   - 5050 → Express backend (API server)
+The following MongoDB collections are created automatically:
 
-==================================================
-D. MongoDB Collections
-==================================================
+1. users        → stores usernames, hashed passwords, and roles (“user” or “admin”)
+2. customers    → stores customer profiles (full name, phone)
+3. vehicles     → stores vehicles linked to customers
+4. services     → stores available detailing services (name, description, priceUSD)
+5. bookings     → stores service bookings (optional feature)
 
-The application uses the following collections in the soapywhips database:
+----------------------------------------------------------
+Extra Information
+----------------------------------------------------------
 
-1. users
-   - Stores user accounts with username, password, and role
-   - Roles: "admin" or "user"
+Default ports:
+• Backend (Express): 5050
+• Frontend (React): 5173
+We use port 5050 because macOS sometimes blocks port 5000.
 
-2. customers
-   - Each user has one customer profile (One-to-One with users)
-   - Fields: fullName, phone, user
+To stop either server, press Ctrl + C in its terminal window.
 
-3. vehicles
-   - Each customer can have multiple vehicles (One-to-Many)
-   - Fields: make, model, year, color, plate, customer
-
-4. services
-   - Admin-defined detailing services (wash, wax, interior shampoo, etc.)
-   - Fields: name, description, priceUSD
-
-5. bookings
-   - Links vehicles to services and scheduled dates (Many-to-One)
-   - Fields: vehicle, service, date, status, notes
-
-==================================================
-E. Example Admin Workflow
-==================================================
-
-1. Admin logs in.
-2. Adds Services (e.g., "Full Interior Detail" - $120).
-3. Views or manages all customers, vehicles, and bookings.
-
-==================================================
-F. Example User Workflow
-==================================================
-
-1. User registers an account and logs in.
-2. Adds their vehicle (e.g., "2021 BMW M240i, Blue").
-3. Views available services.
-4. Creates a booking for a service and date.
-5. Views all of their bookings in the "My Bookings" page.
-
-==================================================
-End of README
-==================================================
+----------------------------------------------------------
+End of README.txt
+----------------------------------------------------------
