@@ -27,7 +27,7 @@ A. How to Start the Web Server (Backend)
    Example contents:
    MONGO_URI=mongodb://127.0.0.1:27017/soapywhips
    JWT_SECRET=replace_this_with_a_long_random_string
-   PORT=5000
+   PORT=5050
 
 4. Install dependencies:
    npm install
@@ -40,7 +40,7 @@ A. How to Start the Web Server (Backend)
    Server running on 5000
 
    ➜ The backend API will now be available at:
-   http://localhost:5000/api
+   http://localhost:5050/api
 
 ==================================================
 B. How to Start the React Application (Frontend)
@@ -79,7 +79,7 @@ Once both servers are running:
 
 3. The application uses two ports:
    - 5173 → React frontend (main application)
-   - 5000 → Express backend (API server)
+   - 5050 → Express backend (API server)
 
 ==================================================
 D. MongoDB Collections
